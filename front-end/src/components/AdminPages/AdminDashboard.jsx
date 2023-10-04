@@ -9,7 +9,11 @@ const AdminDashboard = () => {
         <div className="w-[25%] max-w-[300px] h-full">
           <Sidebar />
         </div>
-        <div className="w-full h-full p-2 z-10"></div>
+        <div className="w-full h-full p-2 z-10">
+          <div className="w-full h-12 flex items-center justify-end px-3">
+            <span className="font-semibold">Admin / Dashboard</span>
+          </div>
+        </div>
       </div>
     </div>
   );
