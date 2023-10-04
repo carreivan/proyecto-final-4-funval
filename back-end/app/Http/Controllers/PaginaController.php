@@ -51,6 +51,17 @@ class PaginaController extends Controller
     }
 
 
+    public function show($id)
+    {
+        $pagina = Pagina::find($id);
+
+        if (!$pagina) {
+            return response()->json(['error' => 'Pagina no encontrada'], 404);
+        }
+
+        return response()->json($pagina);
+    }
+
     /**
      * Update the specified resource in storage.
      *

@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolSeeder::class,
+            PaginaSeeder::class,
+            EnlaceSeeder::class
         ]);
     }
 }

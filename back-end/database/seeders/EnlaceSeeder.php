@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Rol;
+use App\Models\Enlace;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RolSeeder extends Seeder
+class EnlaceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,13 +15,9 @@ class RolSeeder extends Seeder
      */
     public function run()
     {
-        Rol::create([
-            'rol' => 'Admin',
-
-        ]);
-
-        Rol::create([
-            'rol' => 'User',
+        Enlace::create([
+            'idrol' => '1',
+            'idpagina' => '1'
         ]);
     }
 }
