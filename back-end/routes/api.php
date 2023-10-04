@@ -37,6 +37,9 @@ Route::resource('bitacoras', BitacoraController::class)->except(['create', 'edit
 Route::resource('personas', PersonaController::class)->except(['create', 'edit']);
 
 // Rutas para la gestión de páginas
+
 Route::resource('paginas', PaginaController::class)->except(['create', 'edit']);
+
+
 
 Route::post('login', [UsuarioController::class, 'login']);

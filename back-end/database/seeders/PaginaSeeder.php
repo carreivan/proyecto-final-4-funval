@@ -15,12 +15,65 @@ class PaginaSeeder extends Seeder
      */
     public function run()
     {
+
+        //Admin Pages
+
         Pagina::create([
             'url' => '/admindashboard',
             'estado' => 'activo',
             'nombre' => 'admindashboard',
             'icono' => 'dashboard',
             'tipo' => 'admin'
+        ]);
+
+        Pagina::create([
+            'url' => '/admin/parametros',
+            'estado' => 'activo',
+            'nombre' => 'Parametros',
+            'icono' => 'parametros',
+            'tipo' => 'admin'
+        ]);
+
+        Pagina::create([
+            'url' => '/admin/roles',
+            'estado' => 'activo',
+            'nombre' => 'Roles',
+            'icono' => 'roles',
+            'tipo' => 'admin'
+        ]);
+
+        Pagina::create([
+            'url' => '/admin/usuarios',
+            'estado' => 'activo',
+            'nombre' => 'Usuarios',
+            'icono' => 'usuarios',
+            'tipo' => 'admin'
+        ]);
+
+        Pagina::create([
+            'url' => '/admin/bitacoras',
+            'estado' => 'activo',
+            'nombre' => 'Bitacoras',
+            'icono' => 'bitacoras',
+            'tipo' => 'admin'
+        ]);
+
+        Pagina::create([
+            'url' => '/admin/enlaces',
+            'estado' => 'activo',
+            'nombre' => 'Enlaces',
+            'icono' => 'link',
+            'tipo' => 'admin'
+        ]);
+
+        //User Pages
+
+        Pagina::create([
+            'url' => '/userdashboard',
+            'estado' => 'activo',
+            'nombre' => 'userdashboard',
+            'icono' => 'dashboard',
+            'tipo' => 'user'
         ]);
     }
 }

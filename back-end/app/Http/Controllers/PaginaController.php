@@ -94,6 +94,9 @@ class PaginaController extends Controller
         return response()->json($pagina, 200);
     }
 
+
+
+
     /**
      * Remove the specified resource from storage.
      *
