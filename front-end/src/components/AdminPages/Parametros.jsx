@@ -1,7 +1,7 @@
-import DashboardNav from "./DashboardNav";
-import Sidebar from "./Sidebar";
+import DashboardNav from "../DashboardNav";
+import Sidebar from "../Sidebar";
 
-const AdminDashboard = () => {
+const Parametros = () => {
   return (
     <div className="w-screen h-screen flex flex-col">
       <DashboardNav />
@@ -9,10 +9,10 @@ const AdminDashboard = () => {
         <div className="w-[25%] max-w-[300px] h-full">
           <Sidebar />
         </div>
-        <div className="w-full h-full border"></div>
+        <div className="w-full h-full p-2 z-10"></div>
       </div>
     </div>
   );
 };
 
-export default AdminDashboard;
+export default Parametros;

@@ -1,7 +1,54 @@
+import { Link } from "react-router-dom";
+import gear from "../assets/icons/gear.png";
+import roles from "../assets/icons/roles.png";
+import users from "../assets/icons/users.png";
+import logs from "../assets/icons/logs.png";
+import link from "../assets/icons/link.png";
+
 const Sidebar = () => {
   return (
     <aside className="w-full h-full bg-zinc-800 px-4 py-10">
-      <div className="w-full h-20 border"></div>
+      <div className="w-full h-14 flex items-center">
+        <Link to="/admin/parametros" className="flex items-center gap-2">
+          <img src={gear} alt="" className="w-8 h-8 cursor-pointer" />
+          <span className="text-white font-semibold cursor-pointer">
+            Parametros
+          </span>
+        </Link>
+      </div>
+      <div className="w-full h-14 flex items-center">
+        <Link to="/admin/roles" className="flex items-center gap-2">
+          <img src={roles} alt="" className="w-8 h-8 cursor-pointer" />
+          <span className="text-white font-semibold cursor-pointer">Roles</span>
+        </Link>
+      </div>
+
+      <div className="w-full h-14 flex items-center">
+        <Link to="/admin/usuarios" className="flex items-center gap-2">
+          <img src={users} alt="" className="w-8 h-8 cursor-pointer" />
+          <span className="text-white font-semibold cursor-pointer">
+            Usuarios
+          </span>
+        </Link>
+      </div>
+
+      <div className="w-full h-14 flex items-center">
+        <Link to="/admin/bitacoras" className="flex items-center gap-2">
+          <img src={logs} alt="" className="w-8 h-8 cursor-pointer" />
+          <span className="text-white font-semibold cursor-pointer">
+            Bitacoras
+          </span>
+        </Link>
+      </div>
+
+      <div className="w-full h-14 flex items-center">
+        <Link to="/admin/enlaces" className="flex items-center gap-2">
+          <img src={link} alt="" className="w-8 h-8 cursor-pointer" />
+          <span className="text-white font-semibold cursor-pointer">
+            Enlaces
+          </span>
+        </Link>
+      </div>
     </aside>
   );
 };
