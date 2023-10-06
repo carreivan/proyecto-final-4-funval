@@ -49,5 +49,20 @@ class EnlaceSeeder extends Seeder
             'idrol' => '2',
             'idpagina' => '7'
         ]);
+
+        Enlace::create([
+            'idrol' => '2',
+            'idpagina' => '8'
+        ]);
+
+        Enlace::create([
+            'idrol' => '2',
+            'idpagina' => '9'
+        ]);
+
+        Enlace::create([
+            'idrol' => '2',
+            'idpagina' => '10'
+        ]);
     }
 }

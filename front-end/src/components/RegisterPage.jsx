@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { Navigate } from "react-router-dom";
 import github from "../assets/Gihub.svg";
 import google from "../assets/Google.svg";
 import twitter from "../assets/Twitter.svg";
@@ -37,7 +37,9 @@ const RegisterPage = () => {
       // Registro exitoso
       localStorage.setItem("userData", JSON.stringify(responseData));
       if (responseData.usuario.idrol === 1) {
+        return <Navigate to={"/admindashboard"} />;
       } else if (responseData.usuario.idrol === 2) {
+        return <Navigate to={"/userdashboard"} />;
       }
     } catch (error) {
       console.error(error);

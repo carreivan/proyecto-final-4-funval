@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import github from "../assets/Gihub.svg";
@@ -8,12 +8,11 @@ import google from "../assets/Google.svg";
 import twitter from "../assets/Twitter.svg";
 import facebook from "../assets/Facebook.svg";
 import devlogo from "../assets/devchallenges.svg";
-import devlight from "../assets/devchallenges-light.svg";
 
 const LoginPage = () => {
   const [usuario, setUsuario] = useState("");
   const [clave, setClave] = useState("");
-  const [redirectTo, setRedirectTo] = useState(null);
+  const navigate = useNavigate();
 
   const handleUsuarioChange = (event) => {
     setUsuario(event.target.value);
@@ -36,10 +35,10 @@ const LoginPage = () => {
 
       console.log(bitacoraData);
 
-      if (userData.idrol === 1) {
-        setRedirectTo("/admin"); // Establece la ruta de redirección
-      } else if (userData.idrol === 2) {
-        setRedirectTo("/user"); // Establece la ruta de redirección
+      if (userData.usuario.idrol === 1) {
+        return navigate("/admindashboard");
+      } else if (userData.usuario.idrol === 2) {
+        return navigate("/userdashboard");
       }
     } catch (error) {
       console.error("Error al registrar la bitácora:", error);
@@ -67,10 +66,6 @@ const LoginPage = () => {
     }
   };
 
-  // Si redirectTo tiene un valor, redirigir al usuario a la ruta correspondiente
-  if (redirectTo) {
-    return <redirect to={redirectTo} />;
-  }
   return (
     <div className="w-screen h-screen md:flex md:flex-col md:items-center md:justify-center">
       <div className="w-full h-full md:w-[470px] md:h-[700px] md:border-[2px] md:rounded-md md:p-8 md:box-content flex flex-col justify-center items-center gap-10">

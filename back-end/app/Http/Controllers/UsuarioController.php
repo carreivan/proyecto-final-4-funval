@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Persona;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UsuarioController extends Controller
@@ -71,9 +73,9 @@ class UsuarioController extends Controller
         $validator = Validator::make($request->all(), [
 
             'usuario' => 'unique:usuarios,usuario,' . $id,
-
             'habilitado' => 'boolean',
-            'idrol' => 'exists:roles,idrol',
+            'idrol' => 'exists:rols,idrol',
+            'idpersona'
         ]);
 
         if ($validator->fails()) {
@@ -86,32 +88,62 @@ class UsuarioController extends Controller
         return response()->json($usuario, 200);
     }
 
+
+
+
+    //Register Function
     public function register(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-
             'usuario' => 'unique:usuarios,usuario',
             'clave' => 'required',
             'habilitado' => 'boolean',
-            'idrol' => 'exists:roles,idrol',
+            'idrol' => 'exists:rols,idrol',
+            // Campo opcional
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 400);
         }
 
+        try {
+            // Inicia una transacción de base de datos
+            DB::beginTransaction();
 
-        $usuario = new Usuario();
-        $usuario->usuario = $request->input('usuario');
-        $usuario->clave = $request->input('clave');
-        $usuario->habilitado = $request->input('habilitado');
-        $usuario->idrol = $request->input('idrol');
-        $usuario->save();
+            // Crea un nuevo usuario
+            $usuario = new Usuario();
+            $usuario->usuario = $request->input('usuario');
+            $usuario->clave = $request->input('clave'); // Recuerda encriptar la contraseña
+            $usuario->habilitado = $request->input('habilitado');
+            $usuario->idrol = $request->input('idrol');
+            $usuario->save();
 
+            // Crea una nueva persona solo si se proporcionan nombres y apellidos
+            $persona = new Persona([
+                'user' => $request->input('usuario'),
 
-        return response()->json(['message' => 'Usuario registrado con éxito', 'usuario' => $usuario], 201);
+            ]);
+
+            if ($request->filled('usuario')) {
+                $persona->save();
+
+                // Vincula el ID de la persona al usuario
+                $usuario->idpersona = $persona->id;
+                $usuario->save();
+            }
+
+            // Confirma la transacción si todo ha ido bien
+
+            DB::commit();
+
+            return response()->json(['message' => 'Usuario registrado con éxito', 'usuario' => $usuario, 'Persona' => $persona], 201);
+        } catch (\Exception $e) {
+            // En caso de error, revierte la transacción y devuelve un mensaje de error
+            DB::rollback();
+            return response()->json(['error' => 'Error al registrar usuario']);
+        }
     }
+
 
     public function login(Request $request)
     {
@@ -131,6 +163,8 @@ class UsuarioController extends Controller
             'usuario' => $auth,
         ]);
     }
+
+
 
     /**
      * Remove the specified resource from storage.

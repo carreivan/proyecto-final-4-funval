@@ -4,7 +4,7 @@ import Sidebar from "../Sidebar";
 const Parametros = () => {
   return (
     <div className="w-screen h-screen flex flex-col">
-      <DashboardNav />
+      <DashboardNav link={"/admin/perfil"} />
       <div className="w-full h-full flex">
         <div className="w-[25%] max-w-[300px] h-full">
           <Sidebar />

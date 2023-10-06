@@ -75,5 +75,29 @@ class PaginaSeeder extends Seeder
             'icono' => 'dashboard',
             'tipo' => 'user'
         ]);
+
+        Pagina::create([
+            'url' => '/user/colegas',
+            'estado' => 'activo',
+            'nombre' => 'Colegas',
+            'icono' => 'usuarios',
+            'tipo' => 'user'
+        ]);
+
+        Pagina::create([
+            'url' => '/user/enlaces',
+            'estado' => 'activo',
+            'nombre' => 'Enlaces',
+            'icono' => 'link',
+            'tipo' => 'user'
+        ]);
+
+        Pagina::create([
+            'url' => '/user/historial',
+            'estado' => 'activo',
+            'nombre' => 'Historial',
+            'icono' => 'bitacoras',
+            'tipo' => 'user'
+        ]);
     }
 }

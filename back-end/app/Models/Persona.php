@@ -18,6 +18,8 @@ class Persona extends Model
         'segundonombre',
         'primerapellido',
         'segundoapellido',
+        'user'
+
     ];
 
 

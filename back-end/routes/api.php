@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 // Rutas para la gestión de usuarios
 Route::resource('usuarios', UsuarioController::class)->except(['create', 'edit']);
 Route::post('register', [UsuarioController::class, 'register']); // Ruta para el registro de usuarios
+Route::put('/usuarios/idpersona', [UsuarioController::class, 'asignarIdPersona']);
+
 
 // Rutas para la gestión de roles
 Route::resource('roles', RoleController::class)->except(['create', 'edit']);
