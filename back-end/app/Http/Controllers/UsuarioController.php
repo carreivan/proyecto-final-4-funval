@@ -37,7 +37,7 @@ class UsuarioController extends Controller
             'usuario' => 'required|unique:usuarios,usuario',
             'clave' => 'required',
             'habilitado' => 'boolean',
-            'idrol' => 'required|exists:roles,idrol',
+            'idrol' => 'required|exists:rols,idrol',
         ]);
 
         if ($validator->fails()) {

@@ -29,7 +29,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'rol' => 'unique:roles,rol',
+            'rol' => 'unique:rols,rol',
             'fechacreacion' => 'date',
             'fechamodificacion' => 'date',
             'usuariocreacion' => 'nullable',
