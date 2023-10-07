@@ -17,12 +17,6 @@ import UserEnlaces from "./components/UserPages/UserEnlaces";
 import LoadPage from "./components/LoadPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
-const storedUserData = localStorage.getItem("userData");
-
-const userData = JSON.parse(storedUserData);
-
-const user = userData;
-
 function App() {
   return (
     <BrowserRouter>
@@ -33,7 +27,7 @@ function App() {
         <Route path="/load" element={<LoadPage />} />
 
         {/* Admin Routes */}
-        <Route element={<ProtectedRoute rol={2} user={user} />}>
+        <Route element={<ProtectedRoute rol={2} />}>
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/admin/parametros" element={<Parametros />} />
           <Route path="/admin/roles" element={<Roles />} />
@@ -45,7 +39,7 @@ function App() {
 
         {/* User Pages */}
 
-        <Route element={<ProtectedRoute rol={1} user={user} />}>
+        <Route element={<ProtectedRoute rol={1} />}>
           <Route path="/userdashboard" element={<UserDashboard />} />
           <Route path="/user/perfil" element={<UsuarioPerfil />} />
           <Route path="/user/historial" element={<Historial />} />

@@ -22,6 +22,14 @@ const LoginPage = () => {
     setClave(event.target.value);
   };
 
+  const handleRedirection = (idrol) => {
+    if (idrol === 1) {
+      return navigate("/admindashboard");
+    } else if (idrol === 2) {
+      return navigate("/userdashboard");
+    }
+  };
+
   const handleLoginSuccess = async (userData) => {
     localStorage.setItem("userData", JSON.stringify(userData));
 
@@ -34,12 +42,9 @@ const LoginPage = () => {
       const bitacoraData = response.data;
 
       console.log(bitacoraData);
+      console.log(userData.usuario.idrol);
 
-      if (userData.usuario.idrol === 1) {
-        return navigate("/admindashboard");
-      } else if (userData.usuario.idrol === 2) {
-        return navigate("/userdashboard");
-      }
+      handleRedirection(userData.usuario.idrol);
     } catch (error) {
       console.error("Error al registrar la bitácora:", error);
     }
@@ -56,7 +61,7 @@ const LoginPage = () => {
 
       const responseData = response.data;
 
-      console.log(responseData);
+      console.log(responseData.usuario.idrol);
 
       if (responseData.success) {
         handleLoginSuccess(responseData);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import github from "../assets/Gihub.svg";
 import google from "../assets/Google.svg";
 import twitter from "../assets/Twitter.svg";
@@ -15,6 +15,8 @@ const RegisterPage = () => {
     habilitado: true, // Puedes ajustar el valor predeterminado según tus necesidades
     idrol: 2, // Puedes ajustar el valor predeterminado según tus necesidades
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,20 +34,28 @@ const RegisterPage = () => {
 
       const responseData = response.data;
 
-      console.log(responseData);
+      console.log(responseData.usuario);
 
       // Registro exitoso
       localStorage.setItem("userData", JSON.stringify(responseData));
-      if (responseData.usuario.idrol === 1) {
-        return <Navigate to={"/admindashboard"} />;
-      } else if (responseData.usuario.idrol === 2) {
-        return <Navigate to={"/userdashboard"} />;
-      }
+
+      const storedUserData = localStorage.getItem("userData");
+
+      const userData = JSON.parse(storedUserData);
+
+      await redirect(userData);
     } catch (error) {
       console.error(error);
       // Redirige al usuario a una página de error en caso de problemas en la petición.
     }
   };
+
+  const redirect = async (userData) => {
+    if (userData.usuario) {
+      await navigate("/userdashboard"); // Utiliza await aquí
+    }
+  };
+
   return (
     <div className="w-screen h-screen md:flex md:flex-col md:items-center md:justify-center">
       <div className="w-full h-full md:w-[470px] md:h-[800px] md:border-[2px] md:rounded-md md:p-8 md:box-content flex flex-col justify-center items-center gap-10">
