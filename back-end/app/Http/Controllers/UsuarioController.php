@@ -74,6 +74,7 @@ class UsuarioController extends Controller
 
             'usuario' => 'unique:usuarios,usuario,' . $id,
             'habilitado' => 'boolean',
+            'clave',
             'idrol' => 'exists:rols,idrol',
             'idpersona'
         ]);

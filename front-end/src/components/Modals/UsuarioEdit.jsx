@@ -3,11 +3,12 @@ import { Fragment, useState } from "react";
 
 import axios from "axios";
 
-export default function UsuarioEdit() {
+export default function UsuarioEdit({ id, user, contrasena, rol, estado }) {
   let [isOpen, setIsOpen] = useState(false);
-  const [usuario, setUsername] = useState("");
-  const [clave, setPassword] = useState("");
-  const [idrol, setRol] = useState("");
+  const [usuario, setUsername] = useState(user);
+  const [clave, setPassword] = useState(contrasena);
+  const [idrol, setRol] = useState(rol);
+  const [habilitado, setHabilitado] = useState(estado);
 
   function closeModal() {
     setIsOpen(false);
@@ -17,22 +18,30 @@ export default function UsuarioEdit() {
     setIsOpen(true);
   }
 
-  async function handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/usuarios", {
-        usuario,
-        clave,
-        habilitado: 1,
-        idrol,
-      });
-      console.log("User created:", response.data);
-      window.location.reload();
+      const response = await axios.put(
+        `http://127.0.0.1:8000/api/usuarios/${id}`,
+        {
+          usuario,
+          clave,
+          habilitado,
+          idrol,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Success");
+        window.location.reload();
+      } else {
+        console.error("Error to edit user");
+      }
     } catch (error) {
-      console.error("Error while create an user:", error);
+      console.error(error);
     }
-  }
+  };
 
   return (
     <>
@@ -87,6 +96,7 @@ export default function UsuarioEdit() {
                           type="text"
                           placeholder="Nombre del Rol"
                           onChange={(e) => setUsername(e.target.value)}
+                          value={usuario}
                         />
                       </div>
                       <div className="w-full flex flex-col gap-1">
@@ -96,6 +106,7 @@ export default function UsuarioEdit() {
                           type="password"
                           placeholder="Nombre del Rol"
                           onChange={(e) => setPassword(e.target.value)}
+                          value={clave}
                         />
                       </div>
 
@@ -104,9 +115,22 @@ export default function UsuarioEdit() {
                         <select
                           className="border h-10 rounded-md px-3"
                           onChange={(e) => setRol(e.target.value)}
+                          value={rol}
                         >
                           <option value={1}>Admin</option>
                           <option value={2}>User</option>
+                        </select>
+                      </div>
+
+                      <div className="w-full flex flex-col gap-1">
+                        <span className="font-semibold underline">Estado</span>
+                        <select
+                          className="border h-10 rounded-md px-3"
+                          onChange={(e) => setHabilitado(e.target.value)}
+                          value={habilitado}
+                        >
+                          <option value={1}>Activo</option>
+                          <option value={0}>Inactivo</option>
                         </select>
                       </div>
                       <div className="mt-4 flex gap-3">
@@ -122,7 +146,7 @@ export default function UsuarioEdit() {
                           type="submit"
                           className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         >
-                          Crear
+                          Guardar
                         </button>
                       </div>
                     </form>
