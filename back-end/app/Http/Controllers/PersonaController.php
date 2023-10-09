@@ -20,6 +20,10 @@ class PersonaController extends Controller
     }
 
 
+
+
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,6 +49,16 @@ class PersonaController extends Controller
     }
 
 
+    public function show($id)
+    {
+        $persona = Persona::find($id);
+
+        if (!$persona) {
+            return response()->json(['error' => 'Persona no encontrada'], 404);
+        }
+
+        return response()->json($persona);
+    }
     /**
      * Update the specified resource in storage.
      *

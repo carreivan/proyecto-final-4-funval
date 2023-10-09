@@ -5,12 +5,44 @@ import axios from "axios";
 const EditPerfil = ({ handlePerfil }) => {
   const [usuario, setUsername] = useState("");
   const [clave, setPassword] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
+  const [primernombre, setNombre] = useState("");
+  const [primerapellido, setApellido] = useState("");
+  const [idPersona, setIdPersona] = useState();
+  const [editNombre, setEditNombre] = useState("");
+  const [editApellido, setEditApellido] = useState("");
 
   const storedUserData = localStorage.getItem("userData");
 
   const user = JSON.parse(storedUserData);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevenir la recarga de la página
+
+    // Obtener los datos de los campos del formulario
+    try {
+      await axios.put(`http://127.0.0.1:8000/api/usuarios/${user.usuario.id}`, {
+        usuario,
+        clave,
+      });
+      console.log("Primera solicitud POST exitosa");
+    } catch (error) {
+      console.error("Error en la segunda solicitud Put", error);
+    }
+
+    // Realizar la segunda solicitud POST
+    try {
+      await axios.put(`http://127.0.0.1:8000/api/personas/${idPersona}`, {
+        primernombre: editNombre,
+        primerapellido: editApellido,
+      });
+      console.log("Segunda solicitud POST exitosa");
+    } catch (error) {
+      console.error("Error en la segunda solicitud Put", error);
+    }
+
+    // Realizar la primera solicitud POST
+    window.location.reload();
+  };
 
   useEffect(() => {
     axios
@@ -37,14 +69,21 @@ const EditPerfil = ({ handlePerfil }) => {
         if (personaConUsuarioCorrecto) {
           setNombre(personaConUsuarioCorrecto.primernombre);
           setApellido(personaConUsuarioCorrecto.primerapellido);
+          setIdPersona(personaConUsuarioCorrecto.id);
+          console.log(idPersona);
         }
       })
       .catch((error) => console.error(error));
   }, [user]);
 
+  console.log(typeof idPersona);
+
   return (
     <div className="w-full h-auto mt-5 flex flex-col justify-center items-center">
-      <div className="w-[75%] h-[680px] border border-[#E0E0E0] bg-white shadow-md rounded-md flex flex-col">
+      <form
+        onSubmit={handleSubmit}
+        className="w-[75%] h-[680px] border border-[#E0E0E0] bg-white shadow-md rounded-md flex flex-col"
+      >
         <div className="w-full border-b-[1px] flex items-center justify-between border-[#E0E0E0] h-32 px-5">
           <div className="flex flex-col h-full justify-center ">
             <h2 className="text-[24px] font-semibold">
@@ -73,9 +112,9 @@ const EditPerfil = ({ handlePerfil }) => {
           <input
             type="text"
             className="h-12 w-[80%] rounded-md border px-3"
-            name="nombre"
-            placeholder={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            name="primernombre"
+            placeholder={primernombre}
+            onChange={(e) => setEditNombre(e.target.value)}
           />
         </div>
 
@@ -86,9 +125,9 @@ const EditPerfil = ({ handlePerfil }) => {
           <input
             type="text"
             className="h-12 w-[80%] rounded-md border px-3"
-            placeholder={apellido}
-            name="apellido"
-            onChange={(e) => setApellido(e.target.value)}
+            placeholder={primerapellido}
+            name="primerapellido"
+            onChange={(e) => setEditApellido(e.target.value)}
           />
         </div>
 
@@ -120,11 +159,14 @@ const EditPerfil = ({ handlePerfil }) => {
         </div>
 
         <div className="w-full px-5 p-3 flex justify-end">
-          <button className="p-2 px-3 border rounded-md bg-zinc-700 text-white font-semibold hover:bg-zinc-500">
+          <button
+            type="submit"
+            className="p-2 px-3 border rounded-md bg-zinc-700 text-white font-semibold hover:bg-zinc-500"
+          >
             Guardar
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

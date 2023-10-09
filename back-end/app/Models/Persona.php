@@ -11,7 +11,7 @@ class Persona extends Model
 
     protected $table = 'personas';
 
-    protected $primaryKey = 'idpersona';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'primernombre',
