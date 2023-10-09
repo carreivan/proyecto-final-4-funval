@@ -29,14 +29,11 @@ class PaginaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'fechacreacion' => 'required|date',
-            'fechamodificacion' => 'date',
-            'usuariocreacion' => 'required',
-            'usuariomodificacion' => 'nullable',
+
             'url' => 'required',
             'estado' => 'required',
             'nombre' => 'required',
-            'descripcion' => 'required',
+            'descripcion',
             'icono' => 'required',
             'tipo' => 'required',
         ]);
@@ -72,14 +69,10 @@ class PaginaController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'fechacreacion' => 'required|date',
-            'fechamodificacion' => 'date',
-            'usuariocreacion' => 'required',
-            'usuariomodificacion' => 'nullable',
+
             'url' => 'required',
             'estado' => 'required',
             'nombre' => 'required',
-            'descripcion' => 'required',
             'icono' => 'required',
             'tipo' => 'required',
         ]);

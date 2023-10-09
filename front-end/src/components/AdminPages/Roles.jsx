@@ -4,6 +4,9 @@ import DashboardNav from "../DashboardNav";
 import Sidebar from "../Sidebar";
 import RolesModal from "../Modals/RolesModal";
 
+import axios from "axios";
+import RolEdit from "../Modals/RolEdit";
+
 const Roles = () => {
   const [apiData, setApiData] = useState([]);
 
@@ -24,6 +27,16 @@ const Roles = () => {
 
     fetchData();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/roles/${id}`);
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
 
   function formatDate(inputDate) {
     const fechaFormateada = new Date(inputDate).toLocaleDateString("es-ES", {
@@ -72,10 +85,11 @@ const Roles = () => {
                     </span>
                   </div>
                   <div className="flex gap-2">
-                    <button className="font-semibold border p-2 px-3 rounded-md bg-blue-700 text-white">
-                      Editar
-                    </button>
-                    <button className="font-semibold border p-2 px-3 rounded-md bg-red-700 text-white">
+                    <RolEdit id={e.idrol} rol={e.rol} />
+                    <button
+                      onClick={() => handleDelete(e.idrol)}
+                      className="font-semibold border p-2 px-3 rounded-md bg-red-700 text-white"
+                    >
                       Eliminar
                     </button>
                   </div>

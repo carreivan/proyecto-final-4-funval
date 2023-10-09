@@ -158,7 +158,13 @@ const EditPerfil = ({ handlePerfil }) => {
           />
         </div>
 
-        <div className="w-full px-5 p-3 flex justify-end">
+        <div className="w-full px-5 p-3 flex justify-end gap-3">
+          <button
+            onClick={handlePerfil}
+            className="p-2 px-3 border rounded-md bg-blue-700 text-white font-semibold hover:bg-zinc-500"
+          >
+            Volver
+          </button>
           <button
             type="submit"
             className="p-2 px-3 border rounded-md bg-zinc-700 text-white font-semibold hover:bg-zinc-500"

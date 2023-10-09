@@ -73,8 +73,8 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'rol' => 'unique:roles,rol,' . $id,
-            'fechamodificacion' => 'date',
+            'rol' => 'unique:rols,rol,' . $id,
+            'fechamodificacion' => 'nullable|date',
             'usuariomodificacion' => 'nullable',
         ]);
 
