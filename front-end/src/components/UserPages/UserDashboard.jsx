@@ -2,9 +2,12 @@ import DashboardNav from "../DashboardNav";
 import UserSidebar from "../UserSidebar";
 
 const UserDashboard = () => {
+  const storedUserData = localStorage.getItem("userData");
+
+  const userData = JSON.parse(storedUserData);
   return (
     <div className="w-screen h-screen flex flex-col">
-      <DashboardNav profileLink={"/user/perfil"} />
+      <DashboardNav link={"/user/perfil"} />
       <div className="w-full h-full flex">
         <div className="w-[25%] max-w-[300px] h-full">
           <UserSidebar />
@@ -17,7 +20,7 @@ const UserDashboard = () => {
           <div className="w-full h-16 mt-10 flex justify-center">
             <div className="w-[70%] border bg-zinc-700 border-zinc-800 rounded-sm flex justify-center items-center">
               <h2 className="font-semibold text-[26px] text-white">
-                Bienvenido Usuario !!!
+                Bienvenido {userData.usuario.usuario} !!!
               </h2>
             </div>
           </div>

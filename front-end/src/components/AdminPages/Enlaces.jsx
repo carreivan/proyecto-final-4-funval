@@ -47,7 +47,7 @@ const Enlaces = () => {
               <h2 className="font-semibold text-[20px] mb-2">Enlaces</h2>
             </div>
             <div className="w-[85%] h-[700px] overflow-y-auto border border-[#E0E0E0] bg-white shadow-md rounded-md flex flex-col">
-              <div className="w-full h-24 py-3 border flex items-center justify-between px-5">
+              <div className="w-full h-24 py-3 border flex items-center justify-between px-5 bg-zinc-700 text-white">
                 <div className="flex flex-col justify-center items-center">
                   <span className="font-semibold underline">Nombre</span>
                 </div>

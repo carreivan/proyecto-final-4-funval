@@ -1,6 +1,47 @@
 import profile from "../assets/icons/profile.png";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const EditPerfil = ({ handlePerfil }) => {
+  const [usuario, setUsername] = useState("");
+  const [clave, setPassword] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+
+  const storedUserData = localStorage.getItem("userData");
+
+  const user = JSON.parse(storedUserData);
+
+  useEffect(() => {
+    axios
+      .get(`http://127.0.0.1:8000/api/usuarios/${user.usuario.id}`)
+      .then((response) => {
+        const data = response.data;
+        setUsername(data.usuario);
+        setPassword(data.clave);
+      })
+      .catch((error) => console.error(error));
+  }, [user.usuario.id]);
+
+  useEffect(() => {
+    axios
+      .get(`http://127.0.0.1:8000/api/personas`)
+      .then((response) => {
+        const data = response.data;
+        console.log(data[0].user);
+
+        const personaConUsuarioCorrecto = data.find(
+          (persona) => persona.user === user.usuario.usuario
+        );
+
+        if (personaConUsuarioCorrecto) {
+          setNombre(personaConUsuarioCorrecto.primernombre);
+          setApellido(personaConUsuarioCorrecto.primerapellido);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, [user]);
+
   return (
     <div className="w-full h-auto mt-5 flex flex-col justify-center items-center">
       <div className="w-[75%] h-[680px] border border-[#E0E0E0] bg-white shadow-md rounded-md flex flex-col">
@@ -32,8 +73,9 @@ const EditPerfil = ({ handlePerfil }) => {
           <input
             type="text"
             className="h-12 w-[80%] rounded-md border px-3"
-            placeholder="Ingrese su nombre"
             name="nombre"
+            placeholder={nombre}
+            onChange={(e) => setNombre(e.target.value)}
           />
         </div>
 
@@ -44,8 +86,9 @@ const EditPerfil = ({ handlePerfil }) => {
           <input
             type="text"
             className="h-12 w-[80%] rounded-md border px-3"
-            placeholder="Ingrese su apellido"
+            placeholder={apellido}
             name="apellido"
+            onChange={(e) => setApellido(e.target.value)}
           />
         </div>
 
@@ -56,8 +99,9 @@ const EditPerfil = ({ handlePerfil }) => {
           <input
             type="text"
             className="h-12 w-[80%] rounded-md border px-3"
-            placeholder="Ingrese su nuevo usuario"
+            placeholder={usuario}
             name="usuario"
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
 
@@ -66,11 +110,19 @@ const EditPerfil = ({ handlePerfil }) => {
             Contraseña
           </span>
           <input
-            type="text"
+            type="password"
             className="h-12 w-[80%] rounded-md border px-3"
-            placeholder="Ingrese su nueva contraseña"
+            placeholder={clave}
             name="contrasena"
+            value={clave}
+            onChange={(e) => setPassword(e.target.value)}
           />
+        </div>
+
+        <div className="w-full px-5 p-3 flex justify-end">
+          <button className="p-2 px-3 border rounded-md bg-zinc-700 text-white font-semibold hover:bg-zinc-500">
+            Guardar
+          </button>
         </div>
       </div>
     </div>
